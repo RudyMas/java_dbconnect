@@ -19,7 +19,7 @@ import java.sql.Timestamp;
  * Easy to use database connection class
  *
  * @author Rudy Mas
- * @version 1.2.1
+ * @version 1.2.2
  */
 public class DBconnect {
     public int rows;
@@ -357,6 +357,16 @@ public class DBconnect {
         }
     }
 
+    public void execute() {
+        try {
+            this.result = this.preparedStatement.executeQuery();
+            this.getRows();
+        } catch (SQLException ex) {
+            System.out.println("[ERROR: execute] There was an error executing your query.");
+            ex.printStackTrace();
+        }
+    }
+
     public void execute(String type) {
         try {
             switch (type.toLowerCase()) {
@@ -372,7 +382,7 @@ public class DBconnect {
                     this.getRows();
             }
         } catch (SQLException ex) {
-            System.out.println("[ERROR: execute] There was an error executing your query.");
+            System.out.println("[ERROR: execute(type)] There was an error executing your query.");
             ex.printStackTrace();
         }
     }
