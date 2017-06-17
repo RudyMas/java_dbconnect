@@ -19,7 +19,7 @@ import java.sql.Timestamp;
  * Easy to use database connection class
  *
  * @author Rudy Mas
- * @version 1.2.2
+ * @version 1.3.0
  */
 public class DBconnect {
     public int rows;
@@ -27,7 +27,6 @@ public class DBconnect {
 
     private Connection connection;
     private Statement statement;
-    private PreparedStatement preparedStatement;
     private ResultSet result;
     private ResultSet generatedKeys;
 
@@ -65,9 +64,6 @@ public class DBconnect {
             }
             if (this.statement != null) {
                 this.statement.close();
-            }
-            if (this.preparedStatement != null) {
-                this.preparedStatement.close();
             }
             this.connection.close();
         } catch (SQLException ex) {
@@ -179,149 +175,151 @@ public class DBconnect {
         this.exec(strQuery);
     }
 
-    public void prepare(String statement) {
+    public PreparedStatement prepare(String statement) {
         try {
-            this.preparedStatement = this.connection.prepareStatement(statement);
+            PreparedStatement preparedStatement = this.connection.prepareStatement(statement);
+            return preparedStatement;
         } catch (SQLException ex) {
             System.out.println("[ERROR: prepare] There was an error with your prepared statement.");
             ex.printStackTrace();
+            return null;
         }
     }
 
-    public void bindParam(int paramno, byte param) {
+    public void bindParam(PreparedStatement preparedStatement, int paramno, byte param) {
         try {
-            this.preparedStatement.setByte(paramno, param);
+            preparedStatement.setByte(paramno, param);
         } catch (SQLException ex) {
             System.out.println("[ERROR: bindParam(byte)] There was an error with binding your data to the prepared statement.");
             ex.printStackTrace();
         }
     }
 
-    public void bindParam(int paramno, Array param) {
+    public void bindParam(PreparedStatement preparedStatement, int paramno, Array param) {
         try {
-            this.preparedStatement.setArray(paramno, param);
+            preparedStatement.setArray(paramno, param);
         } catch (SQLException ex) {
             System.out.println("[ERROR: bindParam(Array)] There was an error with binding your data to the prepared statement.");
             ex.printStackTrace();
         }
     }
 
-    public void bindParam(int paramno, short param) {
+    public void bindParam(PreparedStatement preparedStatement, int paramno, short param) {
         try {
-            this.preparedStatement.setShort(paramno, param);
+            preparedStatement.setShort(paramno, param);
         } catch (SQLException ex) {
             System.out.println("[ERROR: bindParam(short)] There was an error with binding your data to the prepared statement.");
             ex.printStackTrace();
         }
     }
 
-    public void bindParam(int paramno, int param) {
+    public void bindParam(PreparedStatement preparedStatement, int paramno, int param) {
         try {
-            this.preparedStatement.setInt(paramno, param);
+            preparedStatement.setInt(paramno, param);
         } catch (SQLException ex) {
             System.out.println("[ERROR: bindParam(int)] There was an error with binding your data to the prepared statement.");
             ex.printStackTrace();
         }
     }
 
-    public void bindParam(int paramno, long param) {
+    public void bindParam(PreparedStatement preparedStatement, int paramno, long param) {
         try {
-            this.preparedStatement.setLong(paramno, param);
+            preparedStatement.setLong(paramno, param);
         } catch (SQLException ex) {
             System.out.println("[ERROR: bindParam(long)] There was an error with binding your data to the prepared statement.");
             ex.printStackTrace();
         }
     }
 
-    public void bindParam(int paramno, float param) {
+    public void bindParam(PreparedStatement preparedStatement, int paramno, float param) {
         try {
-            this.preparedStatement.setFloat(paramno, param);
+            preparedStatement.setFloat(paramno, param);
         } catch (SQLException ex) {
             System.out.println("[ERROR: bindParam(float)] There was an error with binding your data to the prepared statement.");
             ex.printStackTrace();
         }
     }
 
-    public void bindParam(int paramno, double param) {
+    public void bindParam(PreparedStatement preparedStatement, int paramno, double param) {
         try {
-            this.preparedStatement.setDouble(paramno, param);
+            preparedStatement.setDouble(paramno, param);
         } catch (SQLException ex) {
             System.out.println("[ERROR: bindParam(double)] There was an error with binding your data to the prepared statement.");
             ex.printStackTrace();
         }
     }
 
-    public void bindParam(int paramno, BigDecimal param) {
+    public void bindParam(PreparedStatement preparedStatement, int paramno, BigDecimal param) {
         try {
-            this.preparedStatement.setBigDecimal(paramno, param);
+            preparedStatement.setBigDecimal(paramno, param);
         } catch (SQLException ex) {
             System.out.println("[ERROR: bindParam(BigDecimal)] There was an error with binding your data to the prepared statement.");
             ex.printStackTrace();
         }
     }
 
-    public void bindParam(int paramno, boolean param) {
+    public void bindParam(PreparedStatement preparedStatement, int paramno, boolean param) {
         try {
-            this.preparedStatement.setBoolean(paramno, param);
+            preparedStatement.setBoolean(paramno, param);
         } catch (SQLException ex) {
             System.out.println("[ERROR: bindParam(boolean)] There was an error with binding your data to the prepared statement.");
             ex.printStackTrace();
         }
     }
 
-    public void bindParam(int paramno, String param) {
+    public void bindParam(PreparedStatement preparedStatement, int paramno, String param) {
         try {
-            this.preparedStatement.setString(paramno, param);
+            preparedStatement.setString(paramno, param);
         } catch (SQLException ex) {
             System.out.println("[ERROR: bindParam(string)] There was an error with binding your data to the prepared statement.");
             ex.printStackTrace();
         }
     }
 
-    public void bindParam(int paramno, byte[] param) {
+    public void bindParam(PreparedStatement preparedStatement, int paramno, byte[] param) {
         try {
-            this.preparedStatement.setBytes(paramno, param);
+            preparedStatement.setBytes(paramno, param);
         } catch (SQLException ex) {
             System.out.println("[ERROR: bindParam(byte[])] There was an error with binding your data to the prepared statement.");
             ex.printStackTrace();
         }
     }
 
-    public void bindParam(int paramno, Date param) {
+    public void bindParam(PreparedStatement preparedStatement, int paramno, Date param) {
         try {
-            this.preparedStatement.setDate(paramno, param);
+            preparedStatement.setDate(paramno, param);
         } catch (SQLException ex) {
             System.out.println("[ERROR: bindParam(Date)] There was an error with binding your data to the prepared statement.");
             ex.printStackTrace();
         }
     }
 
-    public void bindParam(int paramno, Time param) {
+    public void bindParam(PreparedStatement preparedStatement, int paramno, Time param) {
         try {
-            this.preparedStatement.setTime(paramno, param);
+            preparedStatement.setTime(paramno, param);
         } catch (SQLException ex) {
             System.out.println("[ERROR: bindParam(Time)] There was an error with binding your data to the prepared statement.");
             ex.printStackTrace();
         }
     }
 
-    public void bindParam(int paramno, Timestamp param) {
+    public void bindParam(PreparedStatement preparedStatement, int paramno, Timestamp param) {
         try {
-            this.preparedStatement.setTimestamp(paramno, param);
+            preparedStatement.setTimestamp(paramno, param);
         } catch (SQLException ex) {
             System.out.println("[ERROR: bindParam(Timestamp)] There was an error with binding your data to the prepared statement.");
             ex.printStackTrace();
         }
     }
 
-    public void bindParam(int paramno, InputStream param, String type) {
+    public void bindParam(PreparedStatement preparedStatement, int paramno, InputStream param, String type) {
         try {
             switch (type.toLowerCase()) {
                 case "ascii":
-                    this.preparedStatement.setAsciiStream(paramno, param);
+                    preparedStatement.setAsciiStream(paramno, param);
                     break;
                 case "binary":
-                    this.preparedStatement.setBinaryStream(paramno, param);
+                    preparedStatement.setBinaryStream(paramno, param);
                     break;
             }
         } catch (SQLException ex) {
@@ -330,36 +328,36 @@ public class DBconnect {
         }
     }
 
-    public void bindParam(int paramno, Reader param) {
+    public void bindParam(PreparedStatement preparedStatement, int paramno, Reader param) {
         try {
-            this.preparedStatement.setCharacterStream(paramno, param);
+            preparedStatement.setCharacterStream(paramno, param);
         } catch (SQLException ex) {
             System.out.println("[ERROR: bindParam(Reader)] There was an error with binding your data to the prepared statement.");
             ex.printStackTrace();
         }
     }
 
-    public void bindParam(int paramno, Clob param) {
+    public void bindParam(PreparedStatement preparedStatement, int paramno, Clob param) {
         try {
-            this.preparedStatement.setClob(paramno, param);
+            preparedStatement.setClob(paramno, param);
         } catch (SQLException ex) {
             System.out.println("[ERROR: bindParam(Clob)] There was an error with binding your data to the prepared statement.");
             ex.printStackTrace();
         }
     }
 
-    public void bindParam(int paramno, Blob param) {
+    public void bindParam(PreparedStatement preparedStatement, int paramno, Blob param) {
         try {
-            this.preparedStatement.setBlob(paramno, param);
+            preparedStatement.setBlob(paramno, param);
         } catch (SQLException ex) {
             System.out.println("[ERROR: bindParam(Blob)] There was an error with binding your data to the prepared statement.");
             ex.printStackTrace();
         }
     }
 
-    public void execute() {
+    public void execute(PreparedStatement preparedStatement) {
         try {
-            this.result = this.preparedStatement.executeQuery();
+            this.result = preparedStatement.executeQuery();
             this.getRows();
         } catch (SQLException ex) {
             System.out.println("[ERROR: execute] There was an error executing your query.");
@@ -367,18 +365,18 @@ public class DBconnect {
         }
     }
 
-    public void execute(String type) {
+    public void execute(PreparedStatement preparedStatement, String type) {
         try {
             switch (type.toLowerCase()) {
                 case "query":
-                    this.result = this.preparedStatement.executeQuery();
+                    this.result = preparedStatement.executeQuery();
                     this.getRows();
                     break;
                 case "update":
-                    this.rows = this.preparedStatement.executeUpdate();
+                    this.rows = preparedStatement.executeUpdate();
                     break;
                 default:
-                    this.result = this.preparedStatement.executeQuery();
+                    this.result = preparedStatement.executeQuery();
                     this.getRows();
             }
         } catch (SQLException ex) {
