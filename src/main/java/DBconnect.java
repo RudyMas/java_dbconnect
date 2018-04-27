@@ -19,7 +19,7 @@ import java.sql.Timestamp;
  * Easy to use database connection class
  *
  * @author Rudy Mas
- * @version 1.3.0
+ * @version 1.3.1
  */
 public class DBconnect {
     public int rows;
@@ -177,8 +177,7 @@ public class DBconnect {
 
     public PreparedStatement prepare(String statement) {
         try {
-            PreparedStatement preparedStatement = this.connection.prepareStatement(statement);
-            return preparedStatement;
+            return this.connection.prepareStatement(statement);
         } catch (SQLException ex) {
             System.out.println("[ERROR: prepare] There was an error with your prepared statement.");
             ex.printStackTrace();
